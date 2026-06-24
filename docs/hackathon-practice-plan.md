@@ -1,6 +1,7 @@
 # ハッカソン練習計画 — Laravel API × Git チーム開発
 
 ## ゴール
+
 - フロントと別リポジトリで動く Todo CRUD API を `todo-api` で完成させる
 - Git のブランチ・PR ワークフローを体で覚える
 
@@ -8,13 +9,15 @@
 
 ## フェーズ一覧
 
-| フェーズ | 内容 | 目安時間 |
-|---|---|---|
-| 0 | 環境確認・Git 初期設定 | 15分 |
-| 1 | API の土台を作る | 30分 |
-| 2 | Todo CRUD を実装する | 60分 |
-| 3 | 動作確認・テスト | 30分 |
-| 4 | PR ワークフローを練習する | 30分 |
+
+| フェーズ | 内容              | 目安時間 |
+| ---- | --------------- | ---- |
+| 0    | 環境確認・Git 初期設定   | 15分  |
+| 1    | API の土台を作る      | 30分  |
+| 2    | Todo CRUD を実装する | 60分  |
+| 3    | 動作確認・テスト        | 30分  |
+| 4    | PR ワークフローを練習する  | 30分  |
+
 
 ---
 
@@ -32,8 +35,9 @@ php artisan migrate
 ```
 
 **チェック:**
-- [ ] `feature/todo-crud` ブランチにいる
-- [ ] `php artisan migrate` がエラーなく通る
+
+- [x] `feature/todo-crud` ブランチにいる
+- [x] `php artisan migrate` がエラーなく通る
 
 ---
 
@@ -48,6 +52,7 @@ php artisan install:api
 > `routes/api.php` が生成される。Laravel 12 ではこのコマンドが必要。
 
 **コミット:**
+
 ```bash
 git add routes/api.php bootstrap/app.php config/sanctum.php
 git commit -m "add: APIルートとSanctumを初期化"
@@ -78,6 +83,7 @@ php artisan migrate
 ```
 
 **コミット:**
+
 ```bash
 git add app/Models/Todo.php database/migrations/
 git commit -m "add: Todoモデルとマイグレーションを追加"
@@ -199,6 +205,7 @@ Route::apiResource('todos', TodoController::class);
 ```
 
 **コミット:**
+
 ```bash
 git add app/ routes/api.php
 git commit -m "add: Todo CRUDコントローラとバリデーションを実装"
@@ -216,14 +223,16 @@ php artisan serve
 
 ### 3-2. Postman / Thunder Client で叩く
 
-| 確認項目 | メソッド | URL | Body |
-|---|---|---|---|
-| 一覧取得 | GET | `/api/todos` | なし |
-| 作成 | POST | `/api/todos` | `{ "title": "牛乳を買う" }` |
-| 1件取得 | GET | `/api/todos/1` | なし |
-| 更新 | PUT | `/api/todos/1` | `{ "is_done": true }` |
-| 削除 | DELETE | `/api/todos/1` | なし |
-| バリデーション確認 | POST | `/api/todos` | `{ "title": "" }` → 422が返るか |
+
+| 確認項目      | メソッド   | URL            | Body                        |
+| --------- | ------ | -------------- | --------------------------- |
+| 一覧取得      | GET    | `/api/todos`   | なし                          |
+| 作成        | POST   | `/api/todos`   | `{ "title": "牛乳を買う" }`      |
+| 1件取得      | GET    | `/api/todos/1` | なし                          |
+| 更新        | PUT    | `/api/todos/1` | `{ "is_done": true }`       |
+| 削除        | DELETE | `/api/todos/1` | なし                          |
+| バリデーション確認 | POST   | `/api/todos`   | `{ "title": "" }` → 422が返るか |
+
 
 ### 3-3. Pest でテストを書く（余裕があれば）
 
@@ -253,6 +262,7 @@ php artisan test
 ```
 
 **コミット:**
+
 ```bash
 git add tests/
 git commit -m "add: Todo APIのPestテストを追加"
@@ -295,7 +305,7 @@ Response 201:
 { "data": { "id": 1, "title": "牛乳を買う", "is_done": false, "created_at": "..." } }
 ```
 
-5. 「Create pull request」→ 自分でレビュー → `main` にマージ
+1. 「Create pull request」→ 自分でレビュー → `main` にマージ
 
 ### 4-3. マージ後のローカル整理
 
@@ -325,3 +335,4 @@ git branch -d feature/todo-crud  # 終わったブランチを削除
 ```php
 'allowed_origins' => ['http://localhost:3000', '*'],  // 開発中は * でOK
 ```
+
